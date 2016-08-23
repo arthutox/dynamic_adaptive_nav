@@ -17,12 +17,12 @@ var path = {
     app: {
         html: 'app/*.html',
         js: 'app/js/**/*.js',
-        scss: 'app/scss/*.scss'
+        scss: 'app/scss/*.sass'
     },
     watch: {
         html: 'app/**/*.html',
         js: 'app/js/**/*.js',
-        scss: 'app/scss/**/*.scss'
+        scss: 'app/scss/**/*.sass'
     },
     bowerComponents : 'bower_components/'
 };
