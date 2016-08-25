@@ -14,15 +14,17 @@
             return navWrapWidth;
         };
         NavAdaptive.prototype.widthNavItemAll = function() {
-            var navItem = this.obj.children('li'),
+            var navItem = this.obj.children('li').not('.sub-nav'),
                 widthAllItems = 0;
+
             navItem.each(function(){
                 widthAllItems += $(this).width();
             });
+            console.log(widthAllItems)
             return widthAllItems;
         };
         NavAdaptive.prototype.navItemMove = function() {
-            var item = this.obj.find('.sub-nav').prev();
+            var item = this.obj.children('.sub-nav').prev();
             this.obj.find('.sub-nav').children('ul').prepend(item.clone());
             item.remove();
         };
@@ -38,7 +40,10 @@
         NavAdaptive.prototype.navAction = function() {
 
             if ( this.widthCheck() ){
-                this.obj.append('<li class="sub-nav"><a>...</a><ul></ul></li>');
+
+                if ( this.obj.children('.sub-nav').length == 0 ){
+                    this.obj.append('<li class="sub-nav"><a>...</a><ul></ul></li>');
+                }
 
                 while ( this.widthCheck() ) {
                     this.navItemMove();
@@ -50,20 +55,21 @@
             }
 
         };
+        NavAdaptive.prototype.resizeAction = function(){
+            var _this = this;
+            $(window).resize(function(){
+                _this.navAction();
+            });
+
+        };
 
         var make = function(){
 
             var $this = $(this),
                 navAdaptive = new NavAdaptive($this);
 
-            //navAdaptive.widthWrap();
-            //navAdaptive.widthNavItemAll();
-            //navAdaptive.widthCheck();
             navAdaptive.navAction();
-
-            $(window).resize(function(){
-                navAdaptive.navAction();
-            });
+            navAdaptive.resizeAction();
 
         };
 
