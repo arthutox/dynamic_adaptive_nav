@@ -3,6 +3,11 @@
   margin: 0 auto;
   border-bottom: 1px solid aqua;
   padding: 50px 0; }
+  .nav-wrap > ul:before, .nav-wrap > ul:after {
+    content: " ";
+    display: table; }
+  .nav-wrap > ul:after {
+    clear: both; }
   .nav-wrap.second {
     max-width: 586px; }
 
@@ -12,17 +17,18 @@
   .main-nav-bar li {
     font-family: sans-serif;
     list-style: none;
-    position: relative; }
+    position: relative;
+    white-space: nowrap; }
     .main-nav-bar li ul {
       padding: 0;
       margin: 0;
       position: absolute;
       top: 100%;
-      left: 0; }
+      right: 0; }
       .main-nav-bar li ul ul {
         top: 0;
         left: 100%; }
   .main-nav-bar > li {
     display: inline-block;
-    vertical-align: top;
+    float: left;
     font-size: 18px; }

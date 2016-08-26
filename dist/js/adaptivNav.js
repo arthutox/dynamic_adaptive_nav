@@ -7,6 +7,7 @@
 
         function NavAdaptive($obj) {
             this.obj = $obj;
+            this.subItem = 0;
         }
         // методы в прототипе
         NavAdaptive.prototype.widthWrap = function() {
@@ -20,17 +21,37 @@
             navItem.each(function(){
                 widthAllItems += $(this).width();
             });
-            console.log(widthAllItems)
+            
             return widthAllItems;
+        };
+        NavAdaptive.prototype.estimatedWidthNavItemAll = function() {
+
+            var $estimatedWidthNavItemAll = this.widthNavItemAll() + $('.sub-nav').children('ul').children('li').first().width();
+            return $estimatedWidthNavItemAll;
+
         };
         NavAdaptive.prototype.navItemMove = function() {
             var item = this.obj.children('.sub-nav').prev();
             this.obj.find('.sub-nav').children('ul').prepend(item.clone());
             item.remove();
         };
+        NavAdaptive.prototype.reNavItemMove = function() {
+            var item = this.obj.children('.sub-nav').children('ul').children('li').first();
+            this.obj.children('.sub-nav').before(item.clone());
+            item.remove();
+        };
         NavAdaptive.prototype.widthCheck = function() {
 
-            if ( this.widthWrap() < this.widthNavItemAll() ){
+            if ( this.widthWrap() < (this.widthNavItemAll() + this.subItem) ){
+                return true;
+            } else {
+                return false;
+            }
+
+        };
+        NavAdaptive.prototype.reWidthCheck = function() {
+
+            if ( this.widthWrap() > ( this.estimatedWidthNavItemAll() ) ){
                 return true;
             } else {
                 return false;
@@ -43,6 +64,7 @@
 
                 if ( this.obj.children('.sub-nav').length == 0 ){
                     this.obj.append('<li class="sub-nav"><a>...</a><ul></ul></li>');
+                    this.subItem = $('.sub-nav').width();
                 }
 
                 while ( this.widthCheck() ) {
@@ -50,8 +72,17 @@
                 }
 
             } else {
-                //this.obj.find('.sub-nav').remove();
-                console.log('Menu false')
+
+                if ( this.reWidthCheck() ) {
+
+                    this.reNavItemMove();
+
+                    if ( $('.sub-nav').children('ul').find('li').length == 0 ){
+                        $('.sub-nav').remove();
+                    }
+
+                }
+
             }
 
         };
