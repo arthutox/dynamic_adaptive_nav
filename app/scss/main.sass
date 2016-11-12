@@ -1,9 +1,8 @@
 .nav-wrap
-  max-width: 1024px
-  margin: 0 auto
-  border-bottom: 1px solid aqua
+  margin: 0 auto 20px
   padding: 50px 0
   &>ul
+    padding: 50px 10px
     &:before, &:after
       content: " "
       display: table
@@ -25,12 +24,20 @@
       position: absolute
       top: 100%
       right: 0
+      opacity: 0
+      transition: opacity .65s
       ul
         top: 0
         left: 100%
-    //&:hover > ul
-
+    &:hover > ul
+      opacity: 1
+    &.sub-nav
+      cursor: pointer
   &>li
-    display: inline-block
     float: left
-    font-size: 18px
+    font-size: 12px
+    margin-right: 10px
+    a
+      padding: 3px 5px
+    &:last-child
+      margin-right: 0

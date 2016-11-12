@@ -2,33 +2,42 @@
     jQuery.fn.adaptiveNav = function(options){
 
         options = $.extend({
-            defColor: "white"
+            errorEstimation: 35,
+            subNavControlTitle: '...'
         }, options);
 
         function NavAdaptive($obj) {
             this.obj = $obj;
             this.subItem = 0;
+            this.errorEstimation = options.errorEstimation;
+            this.subNavControlTitlt = options.subNavControlTitle;
         }
         // методы в прототипе
         NavAdaptive.prototype.widthWrap = function() {
             var navWrapWidth = this.obj.width();
+            console.log(navWrapWidth);
             return navWrapWidth;
         };
         NavAdaptive.prototype.widthNavItemAll = function() {
-            var navItem = this.obj.children('li').not('.sub-nav'),
+            var navItem = this.obj.children('li'),
                 widthAllItems = 0;
 
             navItem.each(function(){
-                widthAllItems += $(this).width();
+                var a = $(this).outerWidth(true);
+                widthAllItems += a;
             });
-            
+            console.log(widthAllItems);
             return widthAllItems;
         };
         NavAdaptive.prototype.estimatedWidthNavItemAll = function() {
 
-            var $estimatedWidthNavItemAll = this.widthNavItemAll() + $('.sub-nav').children('ul').children('li').first().width();
-            return $estimatedWidthNavItemAll;
+            var $estimatedWidthNavItemAll = this.widthNavItemAll() + $('.sub-nav')
+                                                .children('ul')
+                                                .children('li')
+                                                .first()
+                                                .outerWidth(true);
 
+            return $estimatedWidthNavItemAll + this.errorEstimation;
         };
         NavAdaptive.prototype.navItemMove = function() {
             var item = this.obj.children('.sub-nav').prev();
@@ -63,8 +72,8 @@
             if ( this.widthCheck() ){
 
                 if ( this.obj.children('.sub-nav').length == 0 ){
-                    this.obj.append('<li class="sub-nav"><a>...</a><ul></ul></li>');
-                    this.subItem = $('.sub-nav').width();
+                    this.obj.append('<li class="sub-nav"><span>' + this.subNavControlTitlt + '</span><ul></ul></li>');
+                    this.subItem = $('.sub-nav').outerWidth(true);
                 }
 
                 while ( this.widthCheck() ) {
