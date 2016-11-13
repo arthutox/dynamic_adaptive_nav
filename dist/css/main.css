@@ -24,14 +24,16 @@
       margin: 0;
       position: absolute;
       top: 100%;
-      right: 0;
+      right: auto;
+      left: -9999em;
       opacity: 0;
       transition: opacity .65s; }
       .main-nav-bar li ul ul {
         top: 0;
         left: 100%; }
     .main-nav-bar li:hover > ul {
-      opacity: 1; }
+      opacity: 1;
+      left: 0; }
     .main-nav-bar li.sub-nav {
       cursor: pointer; }
   .main-nav-bar > li {
@@ -42,3 +44,29 @@
       padding: 3px 5px; }
     .main-nav-bar > li:last-child {
       margin-right: 0; }
+
+.hamburger-control {
+  border: 1px solid #000;
+  width: 60px;
+  height: 60px;
+  border-radius: 10px;
+  position: relative;
+  z-index: 1;
+  cursor: pointer; }
+  .hamburger-control span {
+    display: block;
+    height: 5px;
+    position: absolute;
+    z-index: 1;
+    left: 10px;
+    right: 10px;
+    top: 50%;
+    margin-top: -2.5px;
+    background-color: #000; }
+    .hamburger-control span:first-child {
+      top: 10px;
+      margin-top: 0; }
+    .hamburger-control span:last-child {
+      top: auto;
+      bottom: 10px;
+      margin-top: 0; }

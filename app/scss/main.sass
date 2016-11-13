@@ -23,7 +23,8 @@
       margin: 0
       position: absolute
       top: 100%
-      right: 0
+      right: auto
+      left: -9999em
       opacity: 0
       transition: opacity .65s
       ul
@@ -31,6 +32,7 @@
         left: 100%
     &:hover > ul
       opacity: 1
+      left: 0
     &.sub-nav
       cursor: pointer
   &>li
@@ -41,3 +43,29 @@
       padding: 3px 5px
     &:last-child
       margin-right: 0
+.hamburger-control
+  border: 1px solid #000
+  width: 60px
+  height: 60px
+  border-radius: 10px
+  position: relative
+  z-index: 1
+  cursor: pointer
+  span
+    $height: 5px
+    display: block
+    height: $height
+    position: absolute
+    z-index: 1
+    left: 10px
+    right: 10px
+    top: 50%
+    margin-top: $height / -2
+    background-color: #000
+    &:first-child
+      top: 10px
+      margin-top: 0
+    &:last-child
+      top: auto
+      bottom: 10px
+      margin-top: 0
